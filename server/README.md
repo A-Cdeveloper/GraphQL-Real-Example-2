@@ -13,66 +13,47 @@ A modern GraphQL backend built with Next.js 15, Apollo Server 5, Prisma ORM, and
 
 ## 📋 Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - MySQL database
 - npm or yarn
 
 ## 🛠️ Installation
 
-1. **Install dependencies:**
-   ```bash
-   npm install
-   ```
+**Install dependencies:**
 
-2. **Environment setup:**
-   Create `.env` file in the root directory:
-   ```env
-   DATABASE_URL="mysql://username:password@localhost:3306/database_name"
-   JWT_SECRET="your-32-character-secret-key"
-   REFRESH_SECRET="your-32-character-refresh-secret"
-   NODE_ENV="development"
-   NEXT_PUBLIC_APP_URL="http://localhost:3000"
-   ```
+**Environment setup:**  
+Create `.env` file in the root directory:
 
-3. **Database setup:**
-   ```bash
-   # Generate Prisma client
-   npx prisma generate
-   
-   # Run migrations
-   npx prisma migrate dev
-   
-   # Seed database
-   npx prisma db seed
-   ```
+**Database setup:**
 
-4. **Start development server:**
-   ```bash
-   npm run dev
-   ```
+**Start development server:**
 
 ## 📚 API Documentation
 
 ### GraphQL Endpoint
+
 - **URL:** `http://localhost:3000/api/graphql`
 - **Playground:** Available in development mode
 
 ### REST API Endpoints
 
 #### Authentication
+
 - `POST /api/auth/login` - User login
-- `POST /api/auth/refresh` - Refresh access token  
+- `POST /api/auth/refresh` - Refresh access token
 - `POST /api/auth/logout` - User logout
 
 ### GraphQL Schema
 
 #### Queries
+
 - `getAllCars(limit: Int): CarsResponse!` - Get all cars
 - `getCarById(id: ID!): Car!` - Get car by ID
 - `getAllBrands: BrandsResponse!` - Get all brands
 - `getBrandById(id: ID!): Brand!` - Get brand by ID
 
 #### Mutations
+
 - `createCar(input: CreateCarInput!): Car!` - Create new car
 - `updateCar(id: ID!, input: UpdateCarInput!): Car!` - Update car
 - `deleteCar(id: ID!): Car!` - Delete car
@@ -83,6 +64,7 @@ A modern GraphQL backend built with Next.js 15, Apollo Server 5, Prisma ORM, and
 ## 🗄️ Database Schema
 
 ### Models
+
 - **User** - Authentication and user management
 - **Brand** - Car brands (BMW, Mercedes, etc.)
 - **Color** - Car colors
@@ -90,10 +72,10 @@ A modern GraphQL backend built with Next.js 15, Apollo Server 5, Prisma ORM, and
 
 ## 🔐 Authentication Flow
 
-1. **Login:** User provides email/password → receives access token + refresh token
-2. **Access:** Include JWT token in Authorization header for protected routes
-3. **Refresh:** Use refresh token to get new access token when expired
-4. **Logout:** Invalidate refresh token
+1.  **Login:** User provides email/password → receives access token + refresh token
+2.  **Access:** Include JWT token in Authorization header for protected routes
+3.  **Refresh:** Use refresh token to get new access token when expired
+4.  **Logout:** Invalidate refresh token
 
 ## 🛡️ Security Features
 
@@ -131,7 +113,7 @@ server/
 
 Test the API using GraphQL Playground or tools like Postman:
 
-```graphql
+```
 query GetAllCars {
   getAllCars {
     items {
@@ -151,19 +133,17 @@ query GetAllCars {
 
 ## 🚀 Deployment
 
-1. **Build the application:**
-   ```bash
-   npm run build
-   ```
+**Build the application:**
 
-2. **Deploy to your preferred platform:**
-   - Vercel (recommended for Next.js)
-   - Railway
-   - DigitalOcean
-   - AWS
+**Deploy to your preferred platform:**
 
-3. **Environment variables:**
-   Make sure to set all required environment variables in your deployment platform.
+- Vercel (recommended for Next.js)
+- Railway
+- DigitalOcean
+- AWS
+
+**Environment variables:**  
+Make sure to set all required environment variables in your deployment platform.
 
 ## 📝 Scripts
 
@@ -175,12 +155,43 @@ query GetAllCars {
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
+1.  Fork the repository
+2.  Create a feature branch
+3.  Make your changes
+4.  Test thoroughly
+5.  Submit a pull request
 
 ## 📄 License
 
 This project is licensed under the MIT License.
+
+```
+npm run build
+```
+
+```
+npm run dev
+```
+
+```
+# Generate Prisma client
+npx prisma generate
+
+# Run migrations
+npx prisma migrate dev
+
+# Seed database
+npx prisma db seed
+```
+
+```
+DATABASE_URL="mysql://username:password@localhost:3306/database_name"
+JWT_SECRET="your-32-character-secret-key"
+REFRESH_SECRET="your-32-character-refresh-secret"
+NODE_ENV="development"
+NEXT_PUBLIC_APP_URL="http://localhost:3000"
+```
+
+```
+npm install
+```
