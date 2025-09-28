@@ -1,0 +1,84 @@
+import { gql } from "graphql-tag";
+
+export const typeDefs = gql`
+  # GraphQL schema definition
+  # Basic types
+  type User {
+    id: ID!
+    name: String!
+    email: String!
+    password: String!
+    token: String!
+    createdAt: String!
+  }
+
+  type Brand {
+    brandId: ID!
+    brandName: String!
+    brandUrl: String!
+    cars: [Car!]!
+  }
+
+  type Color {
+    colorId: ID!
+    colorName: String!
+    cars: [Car!]!
+  }
+
+  type Car {
+    carId: ID!
+    carName: String!
+    color: Color!
+    brand: Brand!
+  }
+
+  type CarsResponse {
+    items: [Car!]!
+    total: Int!
+  }
+
+  type BrandsResponse {
+    items: [Brand!]!
+    total: Int!
+  }
+
+  input CreateCarInput {
+    inputCarName: String!
+    inputColorId: ID!
+    inputBrandId: ID!
+  }
+
+  input UpdateCarInput {
+    inputCarName: String
+    inputColorId: ID
+    inputBrandId: ID
+  }
+
+  input CreateBrandInput {
+    inputBrandName: String!
+    inputBrandUrl: String!
+  }
+
+  input UpdateBrandInput {
+    inputBrandName: String
+    inputBrandUrl: String
+  }
+
+  # Queries
+  type Query {
+    getAllCars(limit: Int): CarsResponse!
+    getCarById(id: ID!): Car!
+    getAllBrands: BrandsResponse!
+    getBrandById(id: ID!): Brand!
+  }
+
+  # Mutations
+  type Mutation {
+    createCar(input: CreateCarInput!): Car!
+    updateCar(id: ID!, input: UpdateCarInput!): Car!
+    deleteCar(id: ID!): Car!
+    createBrand(input: CreateBrandInput!): Brand!
+    updateBrand(id: ID!, input: UpdateBrandInput!): Brand!
+    deleteBrand(id: ID!): Brand!
+  }
+`;

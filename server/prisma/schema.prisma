@@ -1,0 +1,46 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  password     String
+  refreshToken String?  @unique
+  createdAt    DateTime @default(now())
+}
+
+model Brand {
+  brandId   String @id @default(cuid())
+  brandName String
+  brandUrl  String
+  cars      Car[]
+
+  @@map("brands")
+}
+
+model Color {
+  colorId   String @id @default(cuid())
+  colorName String @unique
+  cars      Car[]
+
+  @@map("colors")
+}
+
+model Car {
+  carId   String @id @default(cuid())
+  carName String
+  colorId String
+  color   Color  @relation(fields: [colorId], references: [colorId])
+  brandId String
+  brand   Brand  @relation(fields: [brandId], references: [brandId])
+
+  @@unique([carName, brandId, colorId])
+  @@map("cars")
+}
