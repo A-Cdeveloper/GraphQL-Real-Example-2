@@ -1,13 +1,13 @@
-import AllCars from "./features/cars/components/AllCars";
+import { Outlet } from "react-router";
 
-function App() {
+const AppLayout = () => {
   return (
     <div className="bg-background h-screen w-screen">
       <div className="container mx-auto max-w-xl bg-white p-2">
-        <AllCars />
+        <Outlet />
       </div>
     </div>
   );
-}
+};
 
-export default App;
+export default AppLayout;
