@@ -1,0 +1,16 @@
+# GraphQL Code Generator configuration
+schema: "http://localhost:3000/api/graphql" # URL of your GraphQL server
+documents: "src/**/*.{ts,tsx}" # Where to find GraphQL queries/mutations
+generates:
+  src/generated/graphql.ts: # Where to generate types
+    plugins:
+      - "typescript" # Generate TypeScript types
+      - "typescript-operations" # Generate types for queries/mutations
+    config:
+      # TypeScript configuration
+      scalars:
+        ID: string
+        String: string
+        Int: number
+        Float: number
+        Boolean: boolean
