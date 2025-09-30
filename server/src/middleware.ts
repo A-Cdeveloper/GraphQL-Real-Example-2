@@ -19,7 +19,7 @@ export function middleware(request: NextRequest) {
   // CORS headers
   response.headers.set(
     "Access-Control-Allow-Origin",
-    env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
+    env.NEXT_PUBLIC_CLIENT_URL || "http://localhost:5173"
   );
   response.headers.set("Access-Control-Allow-Credentials", "true");
   response.headers.set(
