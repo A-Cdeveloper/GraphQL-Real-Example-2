@@ -1,0 +1,59 @@
+@import "tailwindcss";
+@import "./fonts.css";
+
+@theme {
+  --spacing: 0.625rem; /* 10px */
+
+  /* Font sizes - Tailwind utilities */
+  --font-size-xs: 1.2rem; /* 12px */
+  --font-size-sm: 1.3rem; /* 13px */
+  --font-size-base: 1.4rem; /* 14px */
+  --font-size-lg: 1.6rem; /* 16px */
+  --font-size-xl: 1.8rem; /* 18px */
+  --font-size-2xl: 2.4rem; /* 24px */
+  --font-size-3xl: 3rem; /* 30px */
+  --font-size-4xl: 3.6rem; /* 36px */
+  --font-size-5xl: 4.8rem; /* 48px */
+  --font-size-6xl: 6rem; /* 60px */
+
+  /* Font families */
+  --font-sans: "Roboto", system-ui, sans-serif;
+  --font-roboto: "Roboto", sans-serif;
+  --font-nunito: "Nunito", sans-serif;
+
+  /* Colors */
+  --color-*: initial;
+  --color-white: #fff;
+  --color-black: #000;
+  --color-gray: #808080;
+  --color-gray-dark: #666666;
+  --color-gray-light: #cccccc;
+  --color-gray-lighter: #e6e6e6;
+  --color-gray-lightest: #f2f2f2;
+  --color-gray-darkest: #333333;
+  --color-gray-darker: #4d4d4d;
+  --color-gray-darker: #4d4d4d;
+  --color-purple: #3f3cbb;
+  --color-midnight: #121063;
+  --color-tahiti: #3ab7bf;
+  --color-bermuda: #78dcca;
+
+  --color-background: var(--color-gray-lighter);
+
+  /* Breakpoints */
+  --breakpoint-sm: 23.4375rem; /* 375px */
+  --breakpoint-md: 48rem; /* 768px */
+  --breakpoint-lg: 64rem; /* 1024px */
+  --breakpoint-xl: 80rem; /* 1280px */
+
+  /* Container */
+  --container-sm: 23.4375rem; /* 375px */
+  --container-md: 48rem; /* 768px */
+  --container-lg: 64rem; /* 1024px */
+  --container-xl: 80rem; /* 1280px */
+}
+
+/* Base font size for body */
+body {
+  font-size: 0.875rem; /* 14px */
+}
