@@ -307,6 +307,24 @@ async function main() {
       "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800&h=600&fit=crop",
   };
 
+  // Random data generators
+  const fuelTypes = ["Benzin", "Dizel", "Hibrid", "Električni", "Gas"];
+  const doorCounts = [2, 3, 4, 5];
+  const gearCounts = [3, 4, 5, 6, 7, 8];
+
+  // Generate random dates between 2015-2024
+  const generateRandomDate = () => {
+    const year = 2015 + Math.floor(Math.random() * 10);
+    const month = 1 + Math.floor(Math.random() * 12);
+    const day = 1 + Math.floor(Math.random() * 28);
+    return new Date(year, month - 1, day);
+  };
+
+  // Generate random price between 5000-150000 EUR
+  const generateRandomPrice = () => {
+    return Math.floor(Math.random() * 145000) + 5000;
+  };
+
   const cars = [];
   for (let i = 0; i < 50; i++) {
     const randomBrand = brandList[Math.floor(Math.random() * brandList.length)];
@@ -318,6 +336,11 @@ async function main() {
       imageUrl:
         carImages[randomModel] ||
         "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800&h=600&fit=crop",
+      price: generateRandomPrice(),
+      fuel: fuelTypes[Math.floor(Math.random() * fuelTypes.length)],
+      door: doorCounts[Math.floor(Math.random() * doorCounts.length)],
+      registrationDate: generateRandomDate(),
+      numberOfGears: gearCounts[Math.floor(Math.random() * gearCounts.length)],
       colorId: randomColor.colorId,
       brandId: randomBrand.brandId,
     });

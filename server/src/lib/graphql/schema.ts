@@ -29,6 +29,11 @@ export const typeDefs = gql`
     carId: ID!
     carName: String!
     imageUrl: String
+    price: Float
+    fuel: String
+    door: Int
+    registrationDate: String
+    numberOfGears: Int
     color: Color!
     brand: Brand!
   }
@@ -46,6 +51,11 @@ export const typeDefs = gql`
   input CreateCarInput {
     inputCarName: String!
     inputImageUrl: String
+    inputPrice: Float
+    inputFuel: String
+    inputDoor: Int
+    inputRegistrationDate: String
+    inputNumberOfGears: Int
     inputColorId: ID!
     inputBrandId: ID!
   }
@@ -53,6 +63,11 @@ export const typeDefs = gql`
   input UpdateCarInput {
     inputCarName: String
     inputImageUrl: String
+    inputPrice: Float
+    inputFuel: String
+    inputDoor: Int
+    inputRegistrationDate: String
+    inputNumberOfGears: Int
     inputColorId: ID
     inputBrandId: ID
   }

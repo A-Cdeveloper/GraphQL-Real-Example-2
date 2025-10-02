@@ -20,11 +20,26 @@ export const mutationResolvers = {
   createCar: async (
     _: unknown,
     {
-      input: { inputCarName, inputImageUrl, inputColorId, inputBrandId },
+      input: {
+        inputCarName,
+        inputImageUrl,
+        inputPrice,
+        inputFuel,
+        inputDoor,
+        inputRegistrationDate,
+        inputNumberOfGears,
+        inputColorId,
+        inputBrandId,
+      },
     }: {
       input: {
         inputCarName: string;
         inputImageUrl?: string;
+        inputPrice?: number;
+        inputFuel?: string;
+        inputDoor?: number;
+        inputRegistrationDate?: string;
+        inputNumberOfGears?: number;
         inputColorId: string;
         inputBrandId: string;
       };
@@ -41,6 +56,11 @@ export const mutationResolvers = {
     const result = createCarSchema.safeParse({
       inputCarName,
       inputImageUrl,
+      inputPrice,
+      inputFuel,
+      inputDoor,
+      inputRegistrationDate,
+      inputNumberOfGears,
       inputColorId,
       inputBrandId,
     });
@@ -52,10 +72,26 @@ export const mutationResolvers = {
     }
 
     try {
+      // Parse registration date from DD.MM.YYYY to Date
+      let parsedRegistrationDate: Date | undefined;
+      if (inputRegistrationDate) {
+        const [day, month, year] = inputRegistrationDate.split(".");
+        parsedRegistrationDate = new Date(
+          parseInt(year),
+          parseInt(month) - 1,
+          parseInt(day)
+        );
+      }
+
       const car = await prisma.car.create({
         data: {
           carName: inputCarName,
           imageUrl: inputImageUrl,
+          price: inputPrice,
+          fuel: inputFuel,
+          door: inputDoor,
+          registrationDate: parsedRegistrationDate,
+          numberOfGears: inputNumberOfGears,
           colorId: inputColorId,
           brandId: inputBrandId,
         },
@@ -80,6 +116,11 @@ export const mutationResolvers = {
       input: {
         inputCarName?: string;
         inputImageUrl?: string;
+        inputPrice?: number;
+        inputFuel?: string;
+        inputDoor?: number;
+        inputRegistrationDate?: string;
+        inputNumberOfGears?: number;
         inputColorId?: string;
         inputBrandId?: string;
       };
@@ -97,6 +138,11 @@ export const mutationResolvers = {
       id,
       inputCarName: input.inputCarName,
       inputImageUrl: input.inputImageUrl,
+      inputPrice: input.inputPrice,
+      inputFuel: input.inputFuel,
+      inputDoor: input.inputDoor,
+      inputRegistrationDate: input.inputRegistrationDate,
+      inputNumberOfGears: input.inputNumberOfGears,
       inputColorId: input.inputColorId,
       inputBrandId: input.inputBrandId,
     });
@@ -113,6 +159,19 @@ export const mutationResolvers = {
     if (input.inputCarName) updateData.carName = input.inputCarName;
     if (input.inputImageUrl !== undefined)
       updateData.imageUrl = input.inputImageUrl;
+    if (input.inputPrice !== undefined) updateData.price = input.inputPrice;
+    if (input.inputFuel !== undefined) updateData.fuel = input.inputFuel;
+    if (input.inputDoor !== undefined) updateData.door = input.inputDoor;
+    if (input.inputRegistrationDate !== undefined) {
+      const [day, month, year] = input.inputRegistrationDate.split(".");
+      updateData.registrationDate = new Date(
+        parseInt(year),
+        parseInt(month) - 1,
+        parseInt(day)
+      );
+    }
+    if (input.inputNumberOfGears !== undefined)
+      updateData.numberOfGears = input.inputNumberOfGears;
     if (input.inputColorId) updateData.colorId = input.inputColorId;
     if (input.inputBrandId) updateData.brandId = input.inputBrandId;
 
