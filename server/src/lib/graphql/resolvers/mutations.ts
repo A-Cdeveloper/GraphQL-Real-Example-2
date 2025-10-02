@@ -20,10 +20,11 @@ export const mutationResolvers = {
   createCar: async (
     _: unknown,
     {
-      input: { inputCarName, inputColorId, inputBrandId },
+      input: { inputCarName, inputImageUrl, inputColorId, inputBrandId },
     }: {
       input: {
         inputCarName: string;
+        inputImageUrl?: string;
         inputColorId: string;
         inputBrandId: string;
       };
@@ -39,6 +40,7 @@ export const mutationResolvers = {
     // Zod validation
     const result = createCarSchema.safeParse({
       inputCarName,
+      inputImageUrl,
       inputColorId,
       inputBrandId,
     });
@@ -53,6 +55,7 @@ export const mutationResolvers = {
       const car = await prisma.car.create({
         data: {
           carName: inputCarName,
+          imageUrl: inputImageUrl,
           colorId: inputColorId,
           brandId: inputBrandId,
         },
@@ -75,9 +78,10 @@ export const mutationResolvers = {
     }: {
       id: string;
       input: {
-        inputCarName: string;
-        inputColorId: string;
-        inputBrandId: string;
+        inputCarName?: string;
+        inputImageUrl?: string;
+        inputColorId?: string;
+        inputBrandId?: string;
       };
     },
     context: GraphQLContext
@@ -92,6 +96,7 @@ export const mutationResolvers = {
     const result = updateCarSchema.safeParse({
       id,
       inputCarName: input.inputCarName,
+      inputImageUrl: input.inputImageUrl,
       inputColorId: input.inputColorId,
       inputBrandId: input.inputBrandId,
     });
@@ -106,6 +111,8 @@ export const mutationResolvers = {
     const updateData: Parameters<typeof prisma.car.update>[0]["data"] = {};
 
     if (input.inputCarName) updateData.carName = input.inputCarName;
+    if (input.inputImageUrl !== undefined)
+      updateData.imageUrl = input.inputImageUrl;
     if (input.inputColorId) updateData.colorId = input.inputColorId;
     if (input.inputBrandId) updateData.brandId = input.inputBrandId;
 

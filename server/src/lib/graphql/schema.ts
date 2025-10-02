@@ -28,6 +28,7 @@ export const typeDefs = gql`
   type Car {
     carId: ID!
     carName: String!
+    imageUrl: String
     color: Color!
     brand: Brand!
   }
@@ -44,12 +45,14 @@ export const typeDefs = gql`
 
   input CreateCarInput {
     inputCarName: String!
+    inputImageUrl: String
     inputColorId: ID!
     inputBrandId: ID!
   }
 
   input UpdateCarInput {
     inputCarName: String
+    inputImageUrl: String
     inputColorId: ID
     inputBrandId: ID
   }

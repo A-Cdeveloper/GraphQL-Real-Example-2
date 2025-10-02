@@ -34,12 +34,13 @@ model Color {
 }
 
 model Car {
-  carId   String @id @default(cuid())
-  carName String
-  colorId String
-  color   Color  @relation(fields: [colorId], references: [colorId])
-  brandId String
-  brand   Brand  @relation(fields: [brandId], references: [brandId])
+  carId    String  @id @default(cuid())
+  carName  String
+  imageUrl String?
+  colorId  String
+  color    Color   @relation(fields: [colorId], references: [colorId])
+  brandId  String
+  brand    Brand   @relation(fields: [brandId], references: [brandId])
 
   @@unique([carName, brandId, colorId])
   @@map("cars")
