@@ -5,12 +5,14 @@ import CarsPage from "@/pages/CarsPage";
 import HomePage from "@/pages/HomePage";
 import AddCar from "@/pages/AddCar";
 import SingleCarPage from "@/pages/SingleCarPage";
+import NotFoundPage from "@/pages/NotFoundPage";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <AppLayout />,
-    // errorElement: <NotFoundPage />,
+    errorElement: <NotFoundPage />,
+
     children: [
       {
         path: routes.home,

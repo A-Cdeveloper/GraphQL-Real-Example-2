@@ -5,7 +5,6 @@ export const routes = {
   singleCar: ":id",
   brands: "/brands",
   colors: "/colors",
-  notFound: "*",
 } as const;
 
 export type RouteKey = keyof typeof routes;
