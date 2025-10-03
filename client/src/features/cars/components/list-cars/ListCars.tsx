@@ -12,13 +12,11 @@ const ListCars = () => {
   if (error) return <ErrorMessage error={error} title="Failed to load cars" />;
 
   return (
-    <div>
-      <div className="flex justify-between bg-white p-4 mb-8 mt-4 border border-border rounded-md">
-        <div>#filters</div>
-        <div>
-          Total: <span className="font-bold">{data?.getAllCars?.total}</span>
-        </div>
+    <div className="relative">
+      <div className="absolute top-[-75px] right-4">
+        Total: <span className="font-bold">{data?.getAllCars?.total}</span>
       </div>
+
       <div className="border-b border-gray-200 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 items-center gap-4">
         {carsToRender.map((car) => (
           <ListCarItem key={car.carId} car={car as Car} />

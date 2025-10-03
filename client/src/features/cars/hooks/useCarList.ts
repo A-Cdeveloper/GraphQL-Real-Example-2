@@ -1,9 +1,11 @@
 import { useQuery } from "@apollo/client/react";
 import { useEffect, useRef, useCallback } from "react";
+import { useQueryState } from "nuqs";
 import { GET_ALL_CARS } from "../queries";
 import type { GetAllCarsQuery } from "@/generated/graphql";
 
 export const useCarList = () => {
+  const [search] = useQueryState("search", { defaultValue: "" });
   const loadMoreRef = useRef<HTMLDivElement>(null);
 
   const { loading, error, data, fetchMore } = useQuery<GetAllCarsQuery>(
@@ -13,7 +15,7 @@ export const useCarList = () => {
         limit: 12,
         offset: 0,
         sort: { field: "carName", order: "asc" },
-        filter: { search: "" },
+        filter: { search: search || "" },
       },
       notifyOnNetworkStatusChange: true,
     }
@@ -29,7 +31,7 @@ export const useCarList = () => {
           limit: 12,
           offset: data.getAllCars.items.length,
           sort: { field: "carName", order: "asc" },
-          filter: { search: "" },
+          filter: { search: search || "" },
         },
         updateQuery: (prev, { fetchMoreResult }) => {
           if (!fetchMoreResult) return prev;
