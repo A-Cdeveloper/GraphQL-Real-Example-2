@@ -1,0 +1,88 @@
+import { useQuery } from "@apollo/client/react";
+import { useEffect, useRef, useCallback } from "react";
+import { GET_ALL_CARS } from "../queries";
+import type { GetAllCarsQuery } from "@/generated/graphql";
+
+export const useCarList = () => {
+  const loadMoreRef = useRef<HTMLDivElement>(null);
+
+  const { loading, error, data, fetchMore } = useQuery<GetAllCarsQuery>(
+    GET_ALL_CARS,
+    {
+      variables: {
+        limit: 12,
+        offset: 0,
+        sort: { field: "carName", order: "asc" },
+        filter: { search: "" },
+      },
+      notifyOnNetworkStatusChange: true,
+    }
+  );
+
+  // Load more funkcija
+  const loadMoreCars = useCallback(async () => {
+    if (loading || !data?.getAllCars?.hasMore) return;
+
+    try {
+      await fetchMore({
+        variables: {
+          limit: 12,
+          offset: data.getAllCars.items.length,
+          sort: { field: "carName", order: "asc" },
+          filter: { search: "" },
+        },
+        updateQuery: (prev, { fetchMoreResult }) => {
+          if (!fetchMoreResult) return prev;
+
+          return {
+            getAllCars: {
+              ...fetchMoreResult.getAllCars,
+              items: [
+                ...prev.getAllCars.items,
+                ...fetchMoreResult.getAllCars.items,
+              ],
+            },
+          };
+        },
+      });
+    } catch (error) {
+      console.error("Error loading more cars:", error);
+    }
+  }, [
+    loading,
+    data?.getAllCars?.hasMore,
+    data?.getAllCars?.items?.length,
+    fetchMore,
+  ]);
+
+  // Intersection Observer
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (
+          entries[0].isIntersecting &&
+          data?.getAllCars?.hasMore &&
+          !loading
+        ) {
+          loadMoreCars();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (loadMoreRef.current) {
+      observer.observe(loadMoreRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [data?.getAllCars?.hasMore, loading, loadMoreCars]);
+
+  return {
+    loading,
+    error,
+    data,
+    loadMoreRef,
+    carsToRender: data?.getAllCars?.items || [],
+    hasMore: data?.getAllCars?.hasMore || false,
+  };
+};
