@@ -1,12 +1,14 @@
 import { gql } from "@apollo/client";
 
 export const GET_ALL_CARS = gql`
-  query GetAllCars {
-    getAllCars {
+  query GetAllCars($limit: Int) {
+    getAllCars(limit: $limit) {
       total
       items {
         carId
         carName
+        imageUrl
+        price
         brand {
           brandId
           brandName
@@ -16,6 +18,30 @@ export const GET_ALL_CARS = gql`
           colorId
           colorName
         }
+      }
+    }
+  }
+`;
+
+export const GET_CAR_BY_ID = gql`
+  query GetCarById($id: ID!) {
+    getCarById(id: $id) {
+      carId
+      carName
+      imageUrl
+      price
+      fuel
+      door
+      registrationDate
+      numberOfGears
+      brand {
+        brandId
+        brandName
+        brandUrl
+      }
+      color {
+        colorId
+        colorName
       }
     }
   }

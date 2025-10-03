@@ -1,10 +1,9 @@
-import AllCars from "@/features/cars/components/AllCars";
+import { Hero } from "@/components/layout/Hero";
 
 const HomePage = () => {
   return (
     <>
-      <h1 className="text-2xl font-bold">Home Page</h1>
-      <AllCars />
+      <Hero />
     </>
   );
 };

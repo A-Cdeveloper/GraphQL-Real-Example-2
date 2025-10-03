@@ -2,12 +2,12 @@
 @import "./fonts.css";
 
 @theme {
-  --spacing: 0.625rem; /* 10px */
+  --spacing: 0.25rem; /* 10px */
 
   /* Font sizes - Tailwind utilities */
-  --font-size-xs: 1.2rem; /* 12px */
-  --font-size-sm: 1.3rem; /* 13px */
-  --font-size-base: 1.4rem; /* 14px */
+  --font-size-xs: 0.75rem; /* 12px */
+  --font-size-sm: 0.875rem; /* 14px */
+  --font-size-base: 1rem; /* 16px */
   --font-size-lg: 1.6rem; /* 16px */
   --font-size-xl: 1.8rem; /* 18px */
   --font-size-2xl: 2.4rem; /* 24px */
@@ -17,43 +17,68 @@
   --font-size-6xl: 6rem; /* 60px */
 
   /* Font families */
-  --font-sans: "Roboto", system-ui, sans-serif;
+  --font-sans: "Nunito", "Roboto", system-ui, sans-serif;
   --font-roboto: "Roboto", sans-serif;
   --font-nunito: "Nunito", sans-serif;
 
-  /* Colors */
-  --color-*: initial;
-  --color-white: #fff;
-  --color-black: #000;
-  --color-gray: #808080;
-  --color-gray-dark: #666666;
-  --color-gray-light: #cccccc;
-  --color-gray-lighter: #e6e6e6;
-  --color-gray-lightest: #f2f2f2;
-  --color-gray-darkest: #333333;
-  --color-gray-darker: #4d4d4d;
-  --color-gray-darker: #4d4d4d;
-  --color-purple: #3f3cbb;
-  --color-midnight: #121063;
-  --color-tahiti: #3ab7bf;
-  --color-bermuda: #78dcca;
+  /* Font weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
 
-  --color-background: var(--color-gray-lighter);
+  /* Core colors inspired by design */
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  /* Grays */
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+
+  /* Accent colors */
+  --color-primary: #2563eb; /* Blue 600 */
+  --color-primary-dark: #1e40af; /* Blue 800 */
+  --color-secondary: #4f46e5; /* Indigo 600 */
+  --color-success: #22c55e; /* Green 500 */
+  --color-warning: #f59e0b; /* Amber 500 */
+  --color-danger: #ef4444; /* Red 500 */
+
+  /* Backgrounds */
+  --color-background: #f7f8fa;
+  --color-card: #ffffff;
+  --color-border: #e5e7eb;
 
   /* Breakpoints */
   --breakpoint-sm: 23.4375rem; /* 375px */
-  --breakpoint-md: 48rem; /* 768px */
-  --breakpoint-lg: 64rem; /* 1024px */
-  --breakpoint-xl: 80rem; /* 1280px */
+  --breakpoint-md: 30rem; /* 480px */
+  --breakpoint-lg: 48rem; /* 768px */
+  --breakpoint-xl: 64rem; /* 1024px */
+  --breakpoint-2xl: 80rem; /* 1280px */
 
   /* Container */
-  --container-sm: 23.4375rem; /* 375px */
-  --container-md: 48rem; /* 768px */
-  --container-lg: 64rem; /* 1024px */
-  --container-xl: 80rem; /* 1280px */
+  --container-sm: 23.4375rem;
+  --container-md: 48rem;
+  --container-lg: 64rem;
+  --container-xl: 80rem;
 }
 
 /* Base font size for body */
 body {
   font-size: 0.875rem; /* 14px */
+  font-family: var(--font-sans);
+  background-color: var(--color-background);
+  color: var(--color-gray-900);
+}
+p {
+  color: var(--color-gray-900);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-normal);
 }
