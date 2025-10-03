@@ -41,6 +41,8 @@ export const typeDefs = gql`
   type CarsResponse {
     items: [Car!]!
     total: Int!
+    hasMore: Boolean!
+    nextOffset: Int
   }
 
   type BrandsResponse {
@@ -82,9 +84,37 @@ export const typeDefs = gql`
     inputBrandUrl: String
   }
 
+  enum SortField {
+    carName
+    price
+    door
+    fuel
+    numberOfGears
+    registrationDate
+  }
+
+  enum SortOrder {
+    asc
+    desc
+  }
+
+  input SortInput {
+    field: SortField!
+    order: SortOrder!
+  }
+
+  input FilterInput {
+    search: String
+  }
+
   # Queries
   type Query {
-    getAllCars(limit: Int): CarsResponse!
+    getAllCars(
+      limit: Int
+      offset: Int
+      sort: SortInput
+      filter: FilterInput
+    ): CarsResponse!
     getCarById(id: ID!): Car!
     getAllBrands: BrandsResponse!
     getBrandById(id: ID!): Brand!
