@@ -2,13 +2,14 @@ import type { Car } from "@/generated/graphql";
 import ListCarItem from "./ListCarItem";
 import { useCarList } from "../../hooks/useCarList";
 import Loading from "@/components/ui/Loading";
+import ErrorMessage from "@/components/ui/ErrorMessage";
 
 const ListCars = () => {
   const { loading, error, data, loadMoreRef, carsToRender, hasMore } =
     useCarList();
 
   if (loading && !data) return <Loading size="lg" className="py-8" />;
-  if (error) return <p>Error: {error.message}</p>;
+  if (error) return <ErrorMessage error={error} title="Failed to load cars" />;
 
   return (
     <div>

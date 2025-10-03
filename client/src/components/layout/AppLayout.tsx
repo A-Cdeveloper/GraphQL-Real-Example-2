@@ -6,9 +6,9 @@ import ErrorBoundary from "../ErrorBoundary";
 
 const AppLayout = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="container mx-auto p-4 lg:px-8">
+      <main className="flex-1 container mx-auto p-4 lg:px-8">
         <ErrorBoundary>
           <Outlet />
         </ErrorBoundary>
