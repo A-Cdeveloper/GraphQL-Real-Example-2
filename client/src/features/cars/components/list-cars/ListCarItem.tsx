@@ -1,7 +1,10 @@
 import type { Car } from "@/generated/graphql";
 import { formatPrice } from "@/lib/helpers";
-import { Link } from "react-router";
+import { routes } from "@/providers/router/routes";
+import { Link, useNavigate } from "react-router";
+import Button from "@/components/ui/Button";
 const ListCarItem = ({ car }: { car: Car }) => {
+  const navigate = useNavigate();
   return (
     <div className="bg-white p-2 border border-border space-y-4 flex flex-col">
       <div className="aspect-[4/3] overflow-hidden">
@@ -26,12 +29,14 @@ const ListCarItem = ({ car }: { car: Car }) => {
           </span>
         </div>
       </div>
-      <Link
-        to={`/cars/${car.carId}`}
-        className=" bg-primary hover:bg-primary/80 py-2 text-white text-center rounded-md"
+      <Button
+        variant="primary"
+        size="lg"
+        onClick={() => navigate(routes.singleCar.replace(":id", car.carId))}
+        className="rounded-none"
       >
         View Details
-      </Link>
+      </Button>
     </div>
   );
 };

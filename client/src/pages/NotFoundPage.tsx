@@ -1,7 +1,9 @@
-import { Link } from "react-router";
+import Button from "@/components/ui/Button";
 import { routes } from "@/providers/router/routes";
+import { useNavigate } from "react-router";
 
 const NotFoundPage = () => {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="max-w-md w-full text-center">
@@ -43,12 +45,13 @@ const NotFoundPage = () => {
           </div>
         </div>
 
-        <Link
-          to={routes.home}
-          className="inline-block bg-primary text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary/80 transition-colors duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+        <Button
+          variant="primary"
+          size="lg"
+          onClick={() => navigate(routes.home)}
         >
-          Go to Home
-        </Link>
+          Go Home
+        </Button>
       </div>
     </div>
   );
