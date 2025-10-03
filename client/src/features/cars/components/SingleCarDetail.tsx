@@ -2,6 +2,8 @@ import { useParams } from "react-router";
 import { GET_CAR_BY_ID } from "../queries";
 import { useQuery } from "@apollo/client/react";
 import type { GetCarByIdQuery } from "@/generated/graphql";
+import Loading from "@/components/ui/Loading";
+import ErrorMessage from "@/components/ui/ErrorMessage";
 
 const SingleCarDetail = () => {
   const { id } = useParams();
@@ -9,8 +11,8 @@ const SingleCarDetail = () => {
     variables: { id },
   });
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (loading) return <Loading size="lg" className="py-8" />;
+  if (error) return <ErrorMessage error={error} title="Failed to load car" />;
 
   const car = data?.getCarById;
 
