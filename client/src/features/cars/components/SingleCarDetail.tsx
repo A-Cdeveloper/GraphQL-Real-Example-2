@@ -4,6 +4,22 @@ import { useQuery } from "@apollo/client/react";
 import type { GetCarByIdQuery } from "@/generated/graphql";
 import Loading from "@/components/ui/Loading";
 import ErrorMessage from "@/components/ui/ErrorMessage";
+import { formatDate, formatPrice } from "@/lib/helpers";
+
+const SingleCarDetailBox = ({
+  title,
+  data,
+}: {
+  title: string;
+  data: string | number;
+}) => {
+  return (
+    <div className="p-2">
+      <h3 className="text-sm font-medium text-gray-500 -mb-1">{title}</h3>
+      <span className="text-base font-bold text-gray-900">{data}</span>
+    </div>
+  );
+};
 
 const SingleCarDetail = () => {
   const { id } = useParams();
@@ -45,50 +61,39 @@ const SingleCarDetail = () => {
 
           <div className="space-y-0">
             <div className="grid grid-cols-2 gap-2">
-              <div className=" p-2 rounded-lg">
-                <h3 className="text-sm font-medium text-gray-500 mb-1">
-                  Price
-                </h3>
-                <p className="text-xl font-semibold text-gray-900">
-                  €{car?.price?.toLocaleString()}
-                </p>
-              </div>
-              <div className=" p-2 rounded-lg">
-                <h3 className="text-sm font-medium text-gray-500 mb-1">
-                  Registration
-                </h3>
-                <p className="text-lg font-medium text-gray-900">
-                  {car?.registrationDate}
-                </p>
-              </div>
+              <SingleCarDetailBox
+                title="Price"
+                data={formatPrice(car?.price as number)}
+              />
+              <SingleCarDetailBox
+                title="Registration"
+                data={formatDate(car?.registrationDate as string)}
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-2">
+              <SingleCarDetailBox
+                title="Fuel Type"
+                data={car?.fuel as string}
+              />
+              <SingleCarDetailBox
+                title="Gears"
+                data={car?.numberOfGears as number}
+              />
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-              <div className=" p-2 rounded-lg">
-                <h3 className="text-sm font-medium text-gray-500 mb-1">
-                  Fuel Type
-                </h3>
-                <p className="text-lg font-medium text-gray-900">{car?.fuel}</p>
-              </div>
-              <div className=" p-2 rounded-lg">
-                <h3 className="text-sm font-medium text-gray-500 mb-1">
-                  Gears
-                </h3>
-                <p className="text-lg font-medium text-gray-900">
-                  {car?.numberOfGears}
-                </p>
-              </div>
+              <SingleCarDetailBox
+                title="Color"
+                data={car?.color.colorName as string}
+              />
             </div>
 
             <div className="grid grid-cols-1 gap-4">
-              <div className=" p-2 rounded-lg">
-                <h3 className="text-sm font-medium text-gray-500 mb-1">
-                  Color
-                </h3>
-                <p className="text-lg font-medium text-gray-900">
-                  {car?.color.colorName}
-                </p>
-              </div>
+              <SingleCarDetailBox
+                title="Color"
+                data={car?.color.colorName as string}
+              />
             </div>
           </div>
         </div>
