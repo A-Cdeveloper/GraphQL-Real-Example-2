@@ -11,6 +11,13 @@ const ListCars = () => {
   if (loading && !data) return <Loading size="lg" className="py-8" />;
   if (error) return <ErrorMessage error={error} title="Failed to load cars" />;
 
+  if (data?.getAllCars?.items.length === 0)
+    return (
+      <div className="flex justify-center items-center h-[30vh]">
+        <h3 className="text-xl">No cars found based on your search</h3>
+      </div>
+    );
+
   return (
     <div className="relative">
       <div className="absolute top-[-75px] right-4">
