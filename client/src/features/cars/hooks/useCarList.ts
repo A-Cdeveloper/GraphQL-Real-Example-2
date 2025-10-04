@@ -6,7 +6,11 @@ import type { GetAllCarsQuery } from "@/generated/graphql";
 
 export const useCarList = () => {
   const [search] = useQueryState("search", { defaultValue: "" });
+  const [sort] = useQueryState("sort", { defaultValue: "" });
   const loadMoreRef = useRef<HTMLDivElement>(null);
+
+  const sortField = sort?.split("-")[0];
+  const sortOrder = sort?.split("-")[1];
 
   const { loading, error, data, fetchMore } = useQuery<GetAllCarsQuery>(
     GET_ALL_CARS,
@@ -14,7 +18,7 @@ export const useCarList = () => {
       variables: {
         limit: 12,
         offset: 0,
-        sort: { field: "carName", order: "asc" },
+        sort: { field: sortField || "carName", order: sortOrder || "asc" },
         filter: { search: search || "" },
       },
       notifyOnNetworkStatusChange: true,
@@ -30,7 +34,7 @@ export const useCarList = () => {
         variables: {
           limit: 12,
           offset: data.getAllCars.items.length,
-          sort: { field: "carName", order: "asc" },
+          sort: { field: sortField || "carName", order: sortOrder || "asc" },
           filter: { search: search || "" },
         },
         updateQuery: (prev, { fetchMoreResult }) => {
@@ -55,6 +59,9 @@ export const useCarList = () => {
     data?.getAllCars?.hasMore,
     data?.getAllCars?.items?.length,
     fetchMore,
+    sortField,
+    sortOrder,
+    search,
   ]);
 
   // Intersection Observer

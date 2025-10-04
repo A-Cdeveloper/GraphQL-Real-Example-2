@@ -4,17 +4,17 @@ import { useDebounce } from "@/hooks/useDebounce";
 import Input from "../Input";
 import { CircleXIcon } from "lucide-react";
 
-type SearchFilterProps = {
+type TextSearchFilterProps = {
   placeholder?: string;
   className?: string;
   paramName?: string;
 };
 
-const SearchFilter = ({
+const TextSearchFilter = ({
   placeholder = "Search...",
   className = "",
   paramName = "search",
-}: SearchFilterProps) => {
+}: TextSearchFilterProps) => {
   const [search, setSearch] = useQueryState(paramName, {
     defaultValue: "",
   });
@@ -49,4 +49,4 @@ const SearchFilter = ({
   );
 };
 
-export default SearchFilter;
+export default TextSearchFilter;

@@ -25,7 +25,7 @@ const Input = ({
 
   const stateClasses = error
     ? "border-danger focus:ring-danger"
-    : "border-gray-300 focus:ring-primary focus:border-primary";
+    : "border-gray-300 focus:ring-gray-200 focus:border-gray-400";
 
   return (
     <div className="w-full">
