@@ -1,16 +1,13 @@
 import { login } from "../api/login";
 
-export type LoginErrorState = {
+export type LoginState = {
   error: string;
   success: boolean;
+  user?: {
+    email: string;
+    password: string;
+  };
 };
-
-export type LoginSuccessState = {
-  error: string;
-  success: boolean;
-};
-
-export type LoginState = LoginErrorState | LoginSuccessState;
 
 export const loginAction = async (
   prevState: unknown,
@@ -26,6 +23,10 @@ export const loginAction = async (
       return {
         error: response.error,
         success: false,
+        user: {
+          email,
+          password,
+        },
       };
     }
 
@@ -37,6 +38,7 @@ export const loginAction = async (
           ? error.message
           : "Login failed. Please try again.",
       success: false,
+      user: { email: "", password: "" },
     };
   }
 };

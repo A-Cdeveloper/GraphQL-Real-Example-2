@@ -23,8 +23,20 @@ const LoginForm = () => {
       className="flex flex-col gap-4 bg-white p-8 w-full max-w-xs shadow-md"
       action={formAction}
     >
-      <Input type="email" placeholder="Email" name="email" required />
-      <Input type="password" placeholder="Password" name="password" required />
+      <Input
+        type="email"
+        placeholder="Email"
+        name="email"
+        defaultValue={state?.user?.email || ""}
+        required
+      />
+      <Input
+        type="password"
+        placeholder="Password"
+        name="password"
+        defaultValue={state?.user?.password || ""}
+        required
+      />
 
       {state?.error && <div className="text-danger text-sm">{state.error}</div>}
 
