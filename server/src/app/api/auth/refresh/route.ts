@@ -32,12 +32,22 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Generate new access token only
-    const { accessToken } = generateTokens(user.id, user.email);
+    // Generate new tokens
+    const { accessToken, refreshToken: newRefreshToken } = generateTokens(
+      user.id,
+      user.email
+    );
 
-    // Return response
+    // Update refresh token in database
+    await prisma.user.update({
+      where: { id: user.id },
+      data: { refreshToken: newRefreshToken },
+    });
+
+    // Return response with both tokens for mobile
     const response = NextResponse.json({
       accessToken,
+      refreshToken: newRefreshToken,
     });
 
     // Set HttpOnly cookie for browser

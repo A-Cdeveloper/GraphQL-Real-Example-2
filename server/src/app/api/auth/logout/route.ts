@@ -1,14 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { refreshSchema } from "@/lib/auth/validation";
+import { logoutSchema } from "@/lib/auth/validation";
 import { handleRestError } from "@/lib/errors";
+import { env } from "@/lib/env";
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
+    // Parse and validate request body
+    let body = {};
+    try {
+      body = await request.json();
+    } catch {
+      // Body is optional for web clients using cookies
+    }
 
-    // Validate data
-    const result = refreshSchema.safeParse(body);
+    const result = logoutSchema.safeParse(body);
     if (!result.success) {
       return NextResponse.json(
         { error: "Validation failed", details: result.error.issues },
@@ -16,33 +22,44 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { refreshToken } = result.data;
+    const { refreshToken: bodyRefreshToken } = result.data;
+    const cookieRefreshToken = request.cookies.get("refreshToken")?.value;
+    const refreshToken = bodyRefreshToken || cookieRefreshToken;
 
-    // Check refresh token in database
-    const user = await prisma.user.findUnique({
-      where: { refreshToken },
-    });
-
-    if (!user) {
-      return NextResponse.json(
-        { error: "Invalid refresh token" },
-        { status: 401 }
-      );
+    if (refreshToken) {
+      // Revoke refresh token in DB if it matches any user
+      await prisma.user.updateMany({
+        where: { refreshToken },
+        data: { refreshToken: null },
+      });
     }
 
-    // Delete refresh token from database
-    await prisma.user.update({
-      where: { id: user.id },
-      data: { refreshToken: null },
-    });
-
-    // Return response
     const response = NextResponse.json({
-      message: "Logged out successfully",
+      success: true,
+      message: "Logout successful",
     });
 
-    // Delete cookie
-    response.cookies.delete("jwt");
+    // Clear all auth cookies for web clients
+    response.cookies.set("jwt", "", {
+      httpOnly: true,
+      secure: env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 0,
+    });
+
+    response.cookies.set("refreshToken", "", {
+      httpOnly: true,
+      secure: env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 0,
+    });
+
+    response.cookies.set("user", "", {
+      httpOnly: false,
+      secure: env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 0,
+    });
 
     return response;
   } catch (error) {

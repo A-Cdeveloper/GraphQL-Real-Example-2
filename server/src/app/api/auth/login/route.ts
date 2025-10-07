@@ -46,10 +46,17 @@ export async function POST(request: NextRequest) {
       data: { refreshToken },
     });
 
-    // Return success response
+    // Return success response with tokens for non-cookie clients (e.g., React Native)
     const response = NextResponse.json({
       success: true,
       message: "Login successful",
+      accessToken,
+      refreshToken,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+      },
     });
 
     // Set HttpOnly cookies for browser
