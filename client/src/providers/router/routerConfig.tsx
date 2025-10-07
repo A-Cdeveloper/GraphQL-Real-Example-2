@@ -6,6 +6,8 @@ import HomePage from "@/pages/HomePage";
 import AddCar from "@/pages/AddCar";
 import SingleCarPage from "@/pages/SingleCarPage";
 import NotFoundPage from "@/pages/NotFoundPage";
+import LoginPage from "@/pages/LoginPage";
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
 
 export const router = createBrowserRouter([
   {
@@ -31,9 +33,17 @@ export const router = createBrowserRouter([
           },
           {
             path: routes.addCar,
-            element: <AddCar />,
+            element: (
+              <ProtectedRoute>
+                <AddCar />
+              </ProtectedRoute>
+            ),
           },
         ],
+      },
+      {
+        path: routes.login,
+        element: <LoginPage />,
       },
     ],
   },
