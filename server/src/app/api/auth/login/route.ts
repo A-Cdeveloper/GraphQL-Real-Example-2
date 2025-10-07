@@ -46,24 +46,41 @@ export async function POST(request: NextRequest) {
       data: { refreshToken },
     });
 
-    // Return response
+    // Return success response
     const response = NextResponse.json({
-      user: {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-      },
-      accessToken,
-      refreshToken,
+      success: true,
+      message: "Login successful",
     });
 
-    // Set HttpOnly cookie for browser
+    // Set HttpOnly cookies for browser
     response.cookies.set("jwt", accessToken, {
       httpOnly: true,
       secure: env.NODE_ENV === "production",
       sameSite: "strict",
       maxAge: 15 * 60 * 1000, // 15 minutes
     });
+
+    response.cookies.set("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+    });
+
+    response.cookies.set(
+      "user",
+      JSON.stringify({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+      }),
+      {
+        httpOnly: false, // Allow client-side access
+        secure: env.NODE_ENV === "production",
+        sameSite: "strict",
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      }
+    );
 
     return response;
   } catch (error) {
