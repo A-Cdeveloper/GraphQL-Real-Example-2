@@ -1,0 +1,17 @@
+export const BRANDS = [
+  { brandId: "cmg9aaiux0000u13k5ptltuxs", brandName: "BMW" },
+  { brandId: "cmg9aaiux0001u13kfp1d0597", brandName: "Mercedes" },
+  { brandId: "cmg9aaiux0002u13ko368p7d0", brandName: "Audi" },
+  { brandId: "cmg9aaiux0003u13k1pyzxdew", brandName: "Toyota" },
+  { brandId: "cmg9aaiux0004u13kti5jjyqh", brandName: "Honda" },
+  { brandId: "cmg9aaiux0005u13keyhnayu1", brandName: "Ford" },
+  { brandId: "cmg9aaiux0006u13kt5gvm2dg", brandName: "Nissan" },
+  { brandId: "cmg9aaiux0007u13k6oig82ib", brandName: "Hyundai" },
+  { brandId: "cmg9aaiux0008u13kcjjjyph5", brandName: "Kia" },
+  { brandId: "cmg9aaiux0009u13kwlmn4oaf", brandName: "Mazda" },
+  { brandId: "cmg9aaiux000au13ktluhoeem", brandName: "Subaru" },
+  { brandId: "cmg9aaiux000bu13k314fxfqz", brandName: "Volvo" },
+  { brandId: "cmg9aaiux000cu13kzypqoatc", brandName: "Lexus" },
+  { brandId: "cmg9aaiux000du13k4aawr6oy", brandName: "Porsche" },
+  { brandId: "cmg9aaiux000eu13kdjwj5za3", brandName: "Tesla" },
+];

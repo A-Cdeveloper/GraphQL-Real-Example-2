@@ -1,15 +1,25 @@
 import Button from "@/components/ui/Button";
 import Navigation from "../navigation/Navigation";
 import Logo from "./Logo";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { routes } from "@/providers/router/routes";
 import { useLogout } from "@/features/auth/hooks/useLogout";
 import { getAuthState } from "@/lib/cookies";
+import { useState, useEffect } from "react";
 
 const Header = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
   const { logout } = useLogout();
-  const { user, isLoggedIn } = getAuthState();
+  const [authState, setAuthState] = useState(getAuthState());
+
+  useEffect(() => {
+    // Update auth state when location changes
+    setAuthState(getAuthState());
+  }, [location]);
+
+  const { user, isLoggedIn } = authState;
 
   return (
     <header className="sticky top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-sm border-b border-border">
@@ -20,7 +30,7 @@ const Header = () => {
           <Navigation isLoggedIn={isLoggedIn} />
 
           <div className="flex items-center gap-4">
-            {isLoggedIn ? (
+            {isLoggedIn && (
               <>
                 <span className="text-sm text-gray-600">
                   Welcome, {user?.name}
@@ -29,7 +39,9 @@ const Header = () => {
                   Logout
                 </Button>
               </>
-            ) : (
+            )}
+
+            {!isLoggedIn && location.pathname !== routes.login && (
               <Button
                 variant="primary"
                 size="sm"

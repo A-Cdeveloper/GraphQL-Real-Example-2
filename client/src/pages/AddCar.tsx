@@ -1,5 +1,11 @@
+import AddCarFormular from "@/features/cars/components/add-car/AddCarFormular";
+
 const AddCar = () => {
-  return <h1 className="text-2xl font-bold">Add Car</h1>;
+  return (
+    <>
+      <AddCarFormular />
+    </>
+  );
 };
 
 export default AddCar;

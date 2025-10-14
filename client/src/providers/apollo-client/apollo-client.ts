@@ -18,6 +18,12 @@ const errorLink = new ErrorLink(({ error, operation, forward }) => {
   );
   if (!isUnauth) return;
 
+  // Don't try to refresh for public operations
+  const publicOperations = ["getAllCars", "getCarById"];
+  if (publicOperations.includes(operation.operationName || "")) {
+    return;
+  }
+
   const refreshToken = getCookie("refreshToken");
   if (!refreshToken) {
     window.location.href = "/login";
