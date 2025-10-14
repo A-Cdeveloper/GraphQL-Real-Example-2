@@ -12,6 +12,7 @@ const TopNavlink = ({
     <NavLink
       to={to}
       className={({ isActive }) => (isActive ? "text-primary" : linkClasses)}
+      end
     >
       {children}
     </NavLink>
