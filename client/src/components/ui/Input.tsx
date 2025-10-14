@@ -15,7 +15,7 @@ const Input = ({
   ...props
 }: InputProps) => {
   const baseClasses =
-    "w-full border transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-0 disabled:opacity-50 disabled:cursor-not-allowed";
+    "w-full border bg-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-0 disabled:opacity-50 disabled:cursor-not-allowed";
 
   const sizeClasses = {
     sm: "px-3 py-1.5 text-sm",
