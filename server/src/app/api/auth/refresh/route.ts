@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
       httpOnly: true,
       secure: env.NODE_ENV === "production",
       sameSite: "strict",
-      expires: new Date(Date.now() + 1 * 60 * 1000), // 1 minute from now
+      expires: new Date(Date.now() + 15 * 60 * 1000), // 15 minutes from now
     });
 
     response.cookies.set("refreshToken", newRefreshToken, {
