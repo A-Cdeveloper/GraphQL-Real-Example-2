@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
     });
 
     response.cookies.set("refreshToken", "", {
-      httpOnly: true,
+      httpOnly: false, // Match the login route setting
       secure: env.NODE_ENV === "production",
       sameSite: "strict",
       maxAge: 0,

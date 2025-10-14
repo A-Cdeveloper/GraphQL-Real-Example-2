@@ -1,6 +1,4 @@
 import {
-  notFoundError,
-  databaseError,
   authenticationError,
   validationError,
   handlePrismaError,

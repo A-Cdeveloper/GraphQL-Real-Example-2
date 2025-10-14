@@ -55,7 +55,14 @@ export async function POST(request: NextRequest) {
       httpOnly: true,
       secure: env.NODE_ENV === "production",
       sameSite: "strict",
-      maxAge: 15 * 60 * 1000, // 15 minutes
+      expires: new Date(Date.now() + 1 * 60 * 1000), // 1 minute from now
+    });
+
+    response.cookies.set("refreshToken", newRefreshToken, {
+      httpOnly: false, // Allow client-side access for refresh
+      secure: env.NODE_ENV === "production",
+      sameSite: "strict",
+      expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
     });
 
     return response;
