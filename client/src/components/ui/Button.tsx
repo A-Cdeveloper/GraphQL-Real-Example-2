@@ -1,7 +1,7 @@
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: "primary" | "secondary" | "outline" | "ghost";
+  variant?: "primary" | "secondary" | "outline" | "ghost" | "danger";
   size?: "sm" | "md" | "lg";
   children: ReactNode;
 };
@@ -22,6 +22,7 @@ const Button = ({
       "bg-gray-100 text-gray-900 hover:bg-gray-200 focus:ring-gray-500",
     outline:
       "border border-gray-300 text-gray-700 hover:bg-gray-50 focus:ring-gray-500",
+    danger: "bg-danger text-white hover:bg-danger focus:ring-danger",
     ghost: "text-gray-700 hover:bg-gray-100 focus:ring-gray-500",
   };
 

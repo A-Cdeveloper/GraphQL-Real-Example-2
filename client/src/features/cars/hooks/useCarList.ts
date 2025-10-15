@@ -22,6 +22,7 @@ export const useCarList = () => {
         filter: { search: search || "" },
       },
       notifyOnNetworkStatusChange: true,
+      fetchPolicy: "network-only",
     }
   );
 

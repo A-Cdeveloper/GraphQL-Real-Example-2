@@ -1,10 +1,16 @@
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { GET_CAR_BY_ID } from "../queries";
-import { useQuery } from "@apollo/client/react";
-import type { GetCarByIdQuery } from "@/generated/graphql";
+import { useMutation, useQuery } from "@apollo/client/react";
+import type {
+  GetCarByIdQuery,
+  MutationDeleteCarArgs,
+} from "@/generated/graphql";
 import Loading from "@/components/ui/Loading";
 import ErrorMessage from "@/components/ui/ErrorMessage";
 import { formatDate, formatPrice } from "@/lib/helpers";
+import Button from "@/components/ui/Button";
+import { getAuthState } from "@/lib/cookies";
+import { DELETE_CAR } from "../mutations";
 
 const SingleCarDetailBox = ({
   title,
@@ -23,9 +29,15 @@ const SingleCarDetailBox = ({
 
 const SingleCarDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { loading, error, data } = useQuery<GetCarByIdQuery>(GET_CAR_BY_ID, {
     variables: { id },
   });
+
+  const [deleteCar, { loading: deleteCarLoading, error: deleteCarError }] =
+    useMutation<MutationDeleteCarArgs>(DELETE_CAR);
+
+  const { isLoggedIn } = getAuthState();
 
   if (loading) return <Loading size="lg" className="py-8" />;
   if (error) return <ErrorMessage error={error} title="Failed to load car" />;
@@ -98,6 +110,28 @@ const SingleCarDetail = () => {
           </div>
         </div>
       </div>
+
+      {isLoggedIn && (
+        <div className="border-b py-3 border-border flex gap-2 justify-end">
+          <Button variant="primary" size="sm">
+            Edit
+          </Button>
+          <Button
+            variant="danger"
+            size="sm"
+            onClick={() => {
+              deleteCar({ variables: { id: car?.carId as string } });
+              navigate("/cars");
+            }}
+          >
+            {deleteCarLoading ? "Deleting..." : "Delete"}
+          </Button>
+        </div>
+      )}
+
+      {deleteCarError && (
+        <ErrorMessage error={deleteCarError} title="Failed to delete car" />
+      )}
     </div>
   );
 };
